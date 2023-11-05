@@ -5,7 +5,7 @@ script1_path = 'camera.py'
 script2_path = 'toyotauser/send_mms.py'
 script3_path = 'police/send_mms.py'
 
-#Run camera and take suspect's photo
+# Run camera and take suspect's photo
 subprocess.run(["python", script1_path])
 
 # Run the first script in toyota user

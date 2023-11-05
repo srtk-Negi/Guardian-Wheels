@@ -10,18 +10,7 @@ host = os.getenv('DB_HOST')
 db_name = os.getenv('DB_NAME')
 
 
-def get_connection():
+def get_engine():
     engine = create_engine(
         f'mysql+pymysql://{username}:{password}@{host}/{db_name}')
     return engine
-
-
-def main():
-    with get_connection().begin() as conn:
-        result = conn.execute(text('SELECT * FROM test'))
-    for row in result:
-        print(row)
-
-
-if __name__ == '__main__':
-    main()
