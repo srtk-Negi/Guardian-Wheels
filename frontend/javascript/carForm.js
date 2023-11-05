@@ -1,38 +1,43 @@
-"use strict";
-const submitBtn = document.querySelector("btn1");
+const form = document.getElementById("userForm");
 
-submitBtn.addEventListener("click", function (e) {
-  e.preventDefault();
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  const messageDiv = document.getElementById("messageDiv");
 
-  const make = document.querySelector("make").value;
-  const name = document.querySelector("model").value;
-  const carColor = document.querySelector("carColor").value;
-  const licencePlate = document.querySelector("licencePlate").value;
-
-  const formData = {
-    make: make,
-    name: name,
-    carColor: carColor,
-    licencePlate: licencePlate,
+  const car_make = document.getElementById("make").value;
+  const car_model = document.getElementById("model").value;
+  const car_color = document.getElementById("color").value;
+  const license_plate_num = document.getElementById("license").value;
+  const num = 20;
+  userData = {
+    form_id: num,
+    user_id: num,
+    car_make: parseInt(car_make, 10),
+    car_model: car_model,
+    car_color: car_color,
+    license_plate_num: license_plate_num,
   };
 
-  console.log(formData);
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  };
 
-  // const jsonData = JSON.stringify(formData);
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/forms/create",
+      requestOptions
+    );
 
-  // fetch("http://127.0.0.1:8000/formdata", {
-  //   method: "POST",
-  //   body: jsonData,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     document.getElementById("result").innerHTML =
-  //       "Data sent to the backend: " + JSON.stringify(data);
-  //   })
-  //   .catch((error) => {
-  //     document.getElementById("result").innerHTML = "Error: " + error;
-  //   });
+    if (response.ok) {
+      messageDiv.innerHTML = "Data submitted successfully.";
+    } else {
+      messageDiv.innerHTML = "Error submitting data.";
+    }
+  } catch (error) {
+    messageDiv.innerHTML = "Error: " + error.message;
+  }
 });
