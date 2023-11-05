@@ -15,7 +15,7 @@ client = Client(account_sid, auth_token)
 
 message = client.messages \
     .create(
-        body='There appears to be an issue with your car! We are alerting the authorities. See a live image above.',
+        body='There appears to be an issue with your car! We are alerting the authorities. See a live image here: https://guardianwheels.s3.us-east-2.amazonaws.com/uploaded_image.jpg',
         from_='+18443433928',
         media_url=['https://cdn-apgml.nitrocdn.com/LebpnhtoivqQZrhySxTgIGIqkErReVqW/assets/images/optimized/rev-a4d5476/www.shouselaw.com/wp-content/uploads/2020/06/how-can-a-person-fight-the-charges-in-court.jpg'],
         to='+12107580135'
