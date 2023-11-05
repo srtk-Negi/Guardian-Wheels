@@ -1,18 +1,19 @@
 from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from .db import base
 
 
-class User(Base):
-    __tablename__ = 'users'
+class FormData(base):
+    __tablename__ = 'forms'
 
-    user_id = Column(Integer, primary_key=True, autoincrement=True)
-    username = Column(String(80), unique=True)
-    password = Column(String(80))
+    form_id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer)
+    car_make = Column(Integer)
+    car_model = Column(String(50))
+    car_color = Column(String(50))
+    license_plate_num = Column(String(12))
 
 
-class DeviceData(Base):
+class DeviceData(base):
     __tablename__ = 'device_data'
 
     device_id = Column(Integer, primary_key=True, autoincrement=True)

@@ -1,7 +1,7 @@
-from fastapi import FastAPI, status
-from fastapi.params import Body
-from .database import get_engine, FormData
-from sqlalchemy import insert
+from fastapi import FastAPI, status, Depends, HTTPException
+from sqlalchemy.orm import Session
+from .database import FormDataSchema, get_db, FormData
+
 
 app = FastAPI()
 
@@ -11,20 +11,18 @@ def root():
     return {"message": "Hello World"}
 
 
-@app.post("/form")
-def form_data(data: FormData = Body(...)):
-    try:
-        engine = get_engine()
-        insert_query = insert(FormData).values(
-            user_id=data.user_id,
-            form_id=data.form_id,
-            car_make=data.car_make,
-            car_model=data.car_model,
-            car_color=data.car_color,
-            car_license_plate_num=data.car_license_plate_num
-        )
-        with engine.begin() as conn:
-            conn.execute(insert_query)
-        return {"message": "success"}
-    except Exception as e:
-        raise status.HTTP_500_INTERNAL_SERVER_ERROR
+@app.post("/forms/create", response_model=FormDataSchema, status_code=status.HTTP_201_CREATED)
+def create_form(form: FormDataSchema, db: Session = Depends(get_db)):
+    new_form = FormData(**form.model_dump())
+    db.add(new_form)
+    db.commit()
+    db.refresh(new_form)
+    return new_form
+
+
+@app.get("/forms/{user_id}", response_model=FormDataSchema)
+def read_item(user_id: int, db: Session = Depends(get_db)):
+    item = db.query(FormData).filter(FormData.user_id == user_id).first()
+    if item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return item
