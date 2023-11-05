@@ -2,6 +2,22 @@
 import pygame
 import pygame.camera
 import os
+import boto3
+from dotenv import load_dotenv
+
+load_dotenv()
+
+bucket_name = 'guardianwheels'
+
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+#intialize the s3 
+s3 = boto3.client(
+    's3',
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key
+)
 
 pygame.camera.init()
 
@@ -24,6 +40,15 @@ if camlist:
     image_path = os.path.join(new_folder, "image.jpg")
     pygame.image.save(image, image_path)
 
+    try:
+        s3.upload_file('burglar_photos/image.jpg', bucket_name, 'uploaded_image.jpg')
+        print(f"Image uploaded to {bucket_name}/uploaded_image.jpg")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
 # Print Error Message
 else:
     print("No camera on current device")
+
+
