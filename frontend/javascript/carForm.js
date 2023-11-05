@@ -8,7 +8,7 @@ form.addEventListener("submit", async function (event) {
   const car_model = document.getElementById("model").value;
   const car_color = document.getElementById("color").value;
   const license_plate_num = document.getElementById("license").value;
-  const num = 20;
+  const num = 1;
   userData = {
     form_id: num,
     user_id: num,
