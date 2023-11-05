@@ -20,4 +20,4 @@ class DeviceData(base):
     user_id = Column(Integer)
     latitude = Column(Float)
     longitude = Column(Float)
-    path_to_image = Column(String(80))
+    path_to_image = Column(String(300))
