@@ -15,7 +15,7 @@ message = client.messages \
     .create(
         body='There appears to be an issue with Analisa Rojas car! She drives a 2015 Silver Toyota Corolla. License plate number SLZ0315. She is parked at this location: https://maps.app.goo.gl/LcqsLBtTWs1X3nxi8 See a live image above.',
         from_='+18443433928',
-        media_url=['https://cdn-apgml.nitrocdn.com/LebpnhtoivqQZrhySxTgIGIqkErReVqW/assets/images/optimized/rev-a4d5476/www.shouselaw.com/wp-content/uploads/2020/06/how-can-a-person-fight-the-charges-in-court.jpg'],
+        media_url=['burglar_photos/image.jpg'],
         to='+12104497471'
     )
 
