@@ -1,4 +1,8 @@
-import random from "./random.js";
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const form = document.getElementById("userForm");
 
@@ -10,7 +14,7 @@ form.addEventListener("submit", async function (event) {
   const car_model = document.getElementById("model").value;
   const car_color = document.getElementById("color").value;
   const license_plate_num = document.getElementById("license").value;
-  const num = random(1, 1000);
+  var num = getRandomInt(1, 10000);
   userData = {
     form_id: num,
     user_id: num,
