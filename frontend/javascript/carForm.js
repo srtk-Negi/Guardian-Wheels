@@ -1,3 +1,5 @@
+import random from "./random.js";
+
 const form = document.getElementById("userForm");
 
 form.addEventListener("submit", async function (event) {
@@ -8,7 +10,7 @@ form.addEventListener("submit", async function (event) {
   const car_model = document.getElementById("model").value;
   const car_color = document.getElementById("color").value;
   const license_plate_num = document.getElementById("license").value;
-  const num = 1;
+  const num = random(1, 1000);
   userData = {
     form_id: num,
     user_id: num,
