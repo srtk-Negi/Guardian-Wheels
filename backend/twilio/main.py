@@ -1,3 +1,4 @@
+
 import subprocess
 import serial
 arduino_port = 'COM3'  # Example: 'COM3' on Windows or '/dev/ttyUSB0' on Linux
